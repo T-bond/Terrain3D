@@ -154,9 +154,9 @@ Constants
 
 .. rst-class:: classref-constant
 
-**MAX_TEXTURES** = ``32`` :ref:`🔗<class_Terrain3DAssets_constant_MAX_TEXTURES>`
+**MAX_TEXTURES** = ``256`` :ref:`🔗<class_Terrain3DAssets_constant_MAX_TEXTURES>`
 
-Hard coded maximum number of textures, with IDs in the range of 0-31. Cannot easily be expanded.
+Hard coded maximum number of textures, with IDs in the range of 0-255. Cannot easily be expanded.
 
 .. _class_Terrain3DAssets_constant_MAX_MESHES:
 

@@ -9,7 +9,7 @@ A high performance, editable terrain system for Godot 4.
 * Can be accessed by GDScript, C#, and any language Godot supports
 * Geomorphing Geometric Clipmap Mesh Terrain, as used in The Witcher 3. See [System Architecture](https://terrain3d.readthedocs.io/en/stable/docs/system_architecture.html) 
 * Terrains as small as 64x64m up to 65.5x65.5km (4295km^2) in variable sized regions
-* Up to 32 textures
+* Up to 256 textures
 * Up to 10 levels of detail for the terrain mesh
 * Foliage instancing, with up to 10 levels of detail, and a shadow impostor
 * Sculpting, holes, texture painting, texture detiling, painting colors and wetness

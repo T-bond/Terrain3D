@@ -3,7 +3,7 @@ Texturing the Terrain
 
 ## Texture List
 
-Terrain3D supports up to 32 texture sets.
+Terrain3D supports up to 256 texture sets.
 
 ### Installing a Texture
 1. Once you've [created your textures](texture_prep.md), place them in your Godot project folder.

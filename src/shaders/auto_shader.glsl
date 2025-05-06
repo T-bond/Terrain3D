@@ -20,8 +20,8 @@ uniform int auto_overlay_texture : hint_range(0, 31) = 1;
 			 float(!auto_shader) * float(control >>14u & 0xFFu) * 0.003921568627450; // 1./255.0		
 
 //INSERT: TEXTURE_ID
-	out_mat.base = int(control >>27u & 0x1Fu);
-	out_mat.over = int(control >> 22u & 0x1Fu);
+	out_mat.base = int((control >>27u & 0x1Fu) | (control >> 1u & 0xE0u));
+	out_mat.over = int((control >> 22u & 0x1Fu) | (control >> 4u & 0x20u));
 	out_mat.blend = float(control >>14u & 0xFFu) * 0.003921568627450; // 1./255.0
 
 )"

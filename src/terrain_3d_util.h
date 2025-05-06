@@ -200,15 +200,27 @@ inline Rect2 aabb2rect(const AABB &p_aabb) {
 inline float as_float(const uint32_t p_value) { return *(float *)&p_value; }
 inline uint32_t as_uint(const float p_value) { return *(uint32_t *)&p_value; }
 
-inline uint8_t get_base(const uint32_t p_pixel) { return p_pixel >> 27 & 0x1F; }
+inline uint8_t get_extra_base(const uint32_t p_pixel) { return p_pixel >> 1 & 0xE0; }
+inline uint8_t get_default_base(const uint32_t p_pixel) { return p_pixel >> 27 & 0x1F; }
+inline uint8_t get_base(const uint32_t p_pixel) { return get_default_base(p_pixel) | get_extra_base(p_pixel); }
+
+inline uint32_t enc_default_base(const uint8_t p_base) { return (p_base & 0x1F) << 27; }
+inline uint32_t enc_extra_base(const uint8_t p_base) { return (p_base & 0xE0) << 1; }
+inline uint32_t enc_base(const uint8_t p_base) { return enc_extra_base(p_base) | enc_default_base(p_base); }
+
 inline uint8_t get_base(const float p_pixel) { return get_base(as_uint(p_pixel)); }
-inline uint32_t enc_base(const uint8_t p_base) { return (p_base & 0x1F) << 27; }
 inline uint32_t gd_get_base(const uint32_t p_pixel) { return get_base(p_pixel); }
 inline uint32_t gd_enc_base(const uint32_t p_base) { return enc_base(p_base); }
 
-inline uint8_t get_overlay(const uint32_t p_pixel) { return p_pixel >> 22 & 0x1F; }
+inline uint8_t get_extra_overlay(const uint32_t p_pixel) { return p_pixel >> 4 & 0x20; }
+inline uint8_t get_default_overlay(const uint32_t p_pixel) { return p_pixel >> 22 & 0x1F; }
+inline uint8_t get_overlay(const uint32_t p_pixel) { return get_default_overlay(p_pixel) | get_extra_overlay(p_pixel); }
+
+inline uint32_t enc_default_overlay(const uint8_t p_over) { return (p_over & 0x1F) << 22; }
+inline uint32_t enc_extra_overlay(const uint8_t p_over) { return (p_over & 0x20) << 4; }
+inline uint32_t enc_overlay(const uint8_t p_over) { return enc_extra_overlay(p_over) | enc_default_overlay(p_over); }
+
 inline uint8_t get_overlay(const float p_pixel) { return get_overlay(as_uint(p_pixel)); }
-inline uint32_t enc_overlay(const uint8_t p_over) { return (p_over & 0x1F) << 22; }
 inline uint32_t gd_get_overlay(const uint32_t p_pixel) { return get_overlay(p_pixel); }
 inline uint32_t gd_enc_overlay(const uint32_t p_over) { return enc_overlay(p_over); }
 

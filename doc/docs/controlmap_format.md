@@ -5,17 +5,18 @@ The control map defines how the terrain is textured using unsigned, 32-bit integ
 
 We process each uint32 pixel as a bit field with the following definition, starting with the left most bits:
 
-| Description | Range | # Bits | Bit #s | Encode | Decode
-|-|-|-|-|-|-|
-| Base texture id | 0-31 | 5 | 32-28 | `(x & 0x1F) <<27` | `x >>27 & 0x1F`
-| Overlay texture id | 0-31 | 5 | 27-23 | `(x & 0x1F) <<22` | `x >>22 & 0x1F`
-| Texture blend | 0-255 | 8 | 22-15 | `(x & 0xFF) <<14` | `x >>14 & 0xFF`
-| UV angle | 0-15 | 4 | 14-11 | `(x & 0xF) <<10` | `x >>10 & 0xF`
-| UV scale | 0-7 | 3 | 10-8 | `(x & 0x7) <<7` | `x >>7 & 0x7`
-| ... reserved ... | | | 
-| Hole: 0 terrain, 1 hole | 0-1 | 1 | 3 | `(x & 0x1) <<2` | `x >>2 & 0x1`
-| Navigation: 0 no, 1 yes | 0-1 | 1 | 2 | `(x & 0x1) <<1` | `x >>1 & 0x1`
-| Autoshader: 0 manual, 1 auto | 0-1 | 1 | 1 | `x & 0x1` | `x & 0x1`
+| Description                   | Range | # Bits | Bit #s | Encode            | Decode
+|-------------------------------|-------|--------|------|-------------------|-|
+| Base texture id               | 0-31  | 5      | 32-28 | `(x & 0x1F) <<27` | `x >>27 & 0x1F`
+| Overlay texture id            | 0-31  | 5      | 27-23 | `(x & 0x1F) <<22` | `x >>22 & 0x1F`
+| Texture blend                 | 0-255 | 8      | 22-15 | `(x & 0xFF) <<14` | `x >>14 & 0xFF`
+| UV angle                      | 0-15  | 4      | 14-11 | `(x & 0xF) <<10`  | `x >>10 & 0xF`
+| UV scale                      | 0-7   | 3      | 10-8 | `(x & 0x7) <<7`   | `x >>7 & 0x7`
+| Overlay texture id extra bit  | 0-1   | 1      | 7    | `(x & 0x1) <<6`   | `x >>6 & 0x1`
+| Base texture id extra bits    | 0-3   | 3      | 6-4  | `(x & 0x3) <<3`   | `x >>3 & 0x3`
+| Hole: 0 terrain, 1 hole       | 0-1   | 1      | 3    | `(x & 0x1) <<2`   | `x >>2 & 0x1`
+| Navigation: 0 no, 1 yes       | 0-1   | 1      | 2    | `(x & 0x1) <<1`   | `x >>1 & 0x1`
+| Autoshader: 0 manual, 1 auto  | 0-1   | 1      | 1    | `x & 0x1`         | `x & 0x1`
 
 * The encode/decode formulas work in both C++ or GLSL, though may need a `u` at the end of literals when working with an unsigned integer. e.g. `x >> 14u & 0xFFu`.
 * We use a FORMAT_RF 32-bit float Image or Texture to allocate the memory. Then in C++, we read or write each uint32 pixel directly into the "float" memory. The values are meaningless when interpreted as floats. We don't convert the integer values to float, so there is no precision loss. Godot shaders support usamplers so we can interpret the memory directly as uint32, without requiring any conversion.
