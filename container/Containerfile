@@ -1,0 +1,16 @@
+FROM archlinux:base-devel
+
+RUN pacman -Sy --noconfirm --needed \
+      scons \
+      pkgconf \
+      gcc \
+      libxcursor \
+      libxinerama \
+      libxi \
+      libxrandr \
+      wayland-utils \
+      mesa \
+      glu \
+      libglvnd \
+      alsa-lib \
+      pulseaudio
